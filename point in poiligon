@@ -1,0 +1,15 @@
+let pointsIntersect = function (yi, y, yj, x, xj, xi) {
+    return ((yi > y) != (yj > y))
+        && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)
+}
+
+function pointInPoly(polygon, point) {
+    const [x, y] = point
+    let j = polygon.length - 1
+
+    return polygon.reduce((inside, el, i) => {
+        const [xi, yi] = el, [xj, yj] = polygon[j]
+        j = i++
+        return pointsIntersect(yi, y, yj, x, xj, xi) ? !inside : inside
+    }, false)
+}
